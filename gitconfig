@@ -1,0 +1,33 @@
+[user]
+	name = Stephen Pennell
+[core]
+	excludesfile = $HOME/.gitignore_global
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustexitcode = true
+[merge]
+	tool = Kaleidoscope
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+[diff]
+	tool = Kaleidoscope
+[diff "pdf"]
+	textconv = /usr/local/bin/pdf2text
+[alias]
+	up = !"git fetch --all -v -p"
+  # up = !"git fetch origin -v; git fetch upstream -v"
+  lg = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+[push]
+	default = simple
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[url "git@github.com:steyep/"]
+	insteadof = git:
+[include]
+	path = ~/.gitconfig.local
