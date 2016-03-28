@@ -6,7 +6,6 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="ste"
-#ZSH_THEME="miloshadzic"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -64,7 +63,7 @@ source $HOME/.env
 # Aliases
 source $HOME/.aliases
 
-
+# Oh-My-Zsh Plugins
 source $ZSH/oh-my-zsh.sh
 source $(brew --prefix)/etc/profile.d/z.sh
 # source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
