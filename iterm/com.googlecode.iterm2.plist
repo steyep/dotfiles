@@ -349,9 +349,9 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1629 81 985 326 0 0 3440 1417 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>53 390 924 485 0 0 1680 1050 </string>
+	<string>713 771 924 485 0 0 2560 1577 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>208 118 650 451 0 0 1680 1050 </string>
+	<string>2826 792 650 451 2560 0 1200 1920 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1110,9 +1110,9 @@
 			<key>Ansi 1 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.36078432202339172</real>
+				<real>0.23045928776264191</real>
 				<key>Green Component</key>
-				<real>0.21176470816135406</real>
+				<real>0.25957152247428894</real>
 				<key>Red Component</key>
 				<real>0.99215686321258545</real>
 			</dict>
@@ -1128,11 +1128,11 @@
 			<key>Ansi 11 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.45209702849388123</real>
+				<real>0.364705890417099</real>
 				<key>Green Component</key>
-				<real>0.48424053192138672</real>
+				<real>0.97254902124404907</real>
 				<key>Red Component</key>
-				<real>0.99215686321258545</real>
+				<real>0.98823529481887817</real>
 			</dict>
 			<key>Ansi 12 Color</key>
 			<dict>
@@ -1182,9 +1182,9 @@
 			<key>Ansi 3 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.45209702849388123</real>
+				<real>0.36856433749198914</real>
 				<key>Green Component</key>
-				<real>0.48424053192138672</real>
+				<real>0.97214478254318237</real>
 				<key>Red Component</key>
 				<real>0.99215686321258545</real>
 			</dict>
@@ -1236,9 +1236,9 @@
 			<key>Ansi 9 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.36078432202339172</real>
+				<real>0.13833785057067871</real>
 				<key>Green Component</key>
-				<real>0.21176470816135406</real>
+				<real>0.0</real>
 				<key>Red Component</key>
 				<real>0.99215686321258545</real>
 			</dict>
@@ -1794,7 +1794,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.024255735799670219</real>
+			<real>0.17675898969173431</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -1889,7 +1889,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-03-26T21:25:58Z</date>
+	<date>2016-03-29T13:06:02Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
