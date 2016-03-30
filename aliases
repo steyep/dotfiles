@@ -9,3 +9,5 @@ alias sql="mysql.server"
 alias jira="node $HOME/git_repos/jira-cmd/bin/jira.js"
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES && killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO && killall Finder /System/Library/CoreServices/Finder.app'
+alias apachelog='subl /usr/local/var/log/apache2'
+alias apache='sudo httpd -k'
