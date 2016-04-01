@@ -11,3 +11,6 @@ alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES && killal
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO && killall Finder /System/Library/CoreServices/Finder.app'
 alias apachelog='subl /usr/local/var/log/apache2'
 alias apache='sudo httpd -k'
+
+apacheconfiguration=/usr/local/etc/apache2/2.4
+[ -d $apacheconfiguration ] && alias apacheconfig="$EDITOR $apacheconfiguration"

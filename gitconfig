@@ -2,6 +2,7 @@
 	name = Stephen Pennell
 [core]
 	excludesfile = ~/.gitignore_global
+  editor = 'subl' --wait
 [mergetool "Kaleidoscope"]
 	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
 	trustexitcode = true

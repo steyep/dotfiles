@@ -55,19 +55,6 @@ DEFAULT_USER=$USER
 
 # User configuration
 
-# Env
-source $HOME/.env
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# Aliases
-source $HOME/.aliases
-
-# Oh-My-Zsh Plugins
-source $ZSH/oh-my-zsh.sh
-source $(brew --prefix)/etc/profile.d/z.sh
-# source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -77,6 +64,20 @@ source $(brew --prefix)/etc/profile.d/z.sh
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR='subl'
+
+# Env
+source $HOME/.env
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# Aliases
+source $HOME/.aliases
+
+# Oh-My-Zsh Plugins
+source $ZSH/oh-my-zsh.sh
+source $(brew --prefix)/etc/profile.d/z.sh
+[ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
+# source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -90,13 +91,13 @@ source $(brew --prefix)/etc/profile.d/z.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="subl ~/.zshrc"
+alias zshconfig="$EDITOR ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Keypad
 # 0 . Enter
 bindkey -s "^[Op" "0"
-bindkey -s "^[Ol" "."
+bindkey -s "^[On" "."
 bindkey -s "^[OM" "^M"
 # 1 2 3
 bindkey -s "^[Oq" "1"
