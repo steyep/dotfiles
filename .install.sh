@@ -10,14 +10,14 @@ mkdir -p $backup
 
 for file in `ls`
 do
-  flag=TRUE
+  flag=true
   while read line
   do
     # If the file is listed in the "ignore" file, flag it as ignored
-    [ "$line" == "$file" ] && flag=FALSE
+    [[ "$line" == "$file" ]] && flag=false
   done < $ignore
 
-  if $flag 
+  if [ "$flag" == true ]; 
     then
       dest="$HOME/.$file"                     # Destination File
       [ -L $dest ] && rm $dest                # If a symlink already exists, delete it
