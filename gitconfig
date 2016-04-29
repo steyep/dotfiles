@@ -20,8 +20,8 @@
 	textconv = /usr/local/bin/pdf2text
 [alias]
 	up = !"git fetch --all -v -p"
-  # up = !"git fetch origin -v; git fetch upstream -v"
   lg = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+  cdiff = !sh -c \"git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative ${1}..${2}\" -
 [push]
 	default = simple
 [filter "lfs"]

@@ -3,14 +3,9 @@ alias updatedb="sudo /usr/libexec/locate.updatedb"
 alias drh='drush help | grep'
 alias beep='echo -en "\a"'
 alias dt='cd ~/Desktop'
-alias fp='/Applications/PTI/FusionPro/FusionPro.app/Contents/MacOS/FusionProCL'
 alias tti-db="sh $HOME/Sites/cg_scripts/tti-db/tti-db"
 alias sql="mysql.server"
 alias jira="node $HOME/git_repos/jira-cmd/bin/jira.js"
-alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES && killall Finder /System/Library/CoreServices/Finder.app'
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO && killall Finder /System/Library/CoreServices/Finder.app'
 alias apachelog='subl /usr/local/var/log/apache2'
-alias apache='sudo httpd -k'
 
-apacheconfiguration=/usr/local/etc/apache2/2.4
-[ -d $apacheconfiguration ] && alias apacheconfig="$EDITOR $apacheconfiguration"
+[ -d ${apachedir=$(echo /usr/local/etc/apache2/2.4)} ] && alias apacheconfig="$EDITOR $apachedir"

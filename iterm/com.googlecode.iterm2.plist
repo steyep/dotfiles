@@ -7,7 +7,7 @@
 	<key>AllowClipboardAccess</key>
 	<false/>
 	<key>AnimateDimming</key>
-	<false/>
+	<true/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
 	<key>AppleScrollAnimationEnabled</key>
@@ -248,7 +248,7 @@
 	<key>DimInactiveSplitPanes</key>
 	<true/>
 	<key>DimOnlyText</key>
-	<false/>
+	<true/>
 	<key>DisableFullscreenTransparency</key>
 	<false/>
 	<key>EnableRendezvous</key>
@@ -256,7 +256,7 @@
 	<key>FocusFollowsMouse</key>
 	<false/>
 	<key>FsTabDelay</key>
-	<real>1</real>
+	<real>2.0799999237060547</real>
 	<key>HiddenAFRStrokeThickness</key>
 	<real>0.0</real>
 	<key>HiddenAdvancedFontRendering</key>
@@ -295,10 +295,12 @@
 	<true/>
 	<key>MaxVertically</key>
 	<false/>
+	<key>NSColorPanelMode</key>
+	<string>6</string>
 	<key>NSFontPanelAttributes</key>
 	<string>1, 0</string>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/dotfiles/iterm</string>
+	<string>~/Documents</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
 	<key>NSNavPanelExpandedSizeForSaveMode</key>
@@ -347,11 +349,11 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>1427 332 231 329 0 0 2560 1577 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1629 81 985 326 0 0 3440 1417 </string>
+	<string>1007 230 985 540 0 0 2560 1577 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>713 771 924 485 0 0 2560 1577 </string>
+	<string>160 760 924 485 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>2826 792 650 451 2560 0 1200 1920 </string>
+	<string>0 0 3440 1440 0 0 3440 1417 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -531,7 +533,7 @@
 			<key>Blur</key>
 			<false/>
 			<key>Blur Radius</key>
-			<real>2</real>
+			<real>15</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -1101,11 +1103,11 @@
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.098039217293262482</real>
+				<real>0.20690387487411499</real>
 				<key>Green Component</key>
-				<real>0.098039217293262482</real>
+				<real>0.20690387487411499</real>
 				<key>Red Component</key>
-				<real>0.098039217293262482</real>
+				<real>0.20690387487411499</real>
 			</dict>
 			<key>Ansi 1 Color</key>
 			<dict>
@@ -1227,11 +1229,11 @@
 			<key>Ansi 8 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<real>0.098039217293262482</real>
+				<real>0.20690387487411499</real>
 				<key>Green Component</key>
-				<real>0.098039217293262482</real>
+				<real>0.20690387487411499</real>
 				<key>Red Component</key>
-				<real>0.098039217293262482</real>
+				<real>0.20690387487411499</real>
 			</dict>
 			<key>Ansi 9 Color</key>
 			<dict>
@@ -1794,7 +1796,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.17675898969173431</real>
+			<real>0.1183871328830719</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -1822,7 +1824,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>477624216.64079601</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>480720499.14251602</real>
+	<real>483466596.18911397</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -1889,7 +1891,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-03-29T13:06:02Z</date>
+	<date>2016-04-28T20:37:22Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
@@ -1897,11 +1899,11 @@
 	<key>ShowFullScreenTabBar</key>
 	<false/>
 	<key>ShowPaneTitles</key>
-	<true/>
+	<false/>
 	<key>SmartPlacement</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.40000000596046448</real>
+	<real>0.60000002384185791</real>
 	<key>SwitchTabModifier</key>
 	<integer>4</integer>
 	<key>SwitchWindowModifier</key>
