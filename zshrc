@@ -49,7 +49,7 @@ ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew meteor npm)
+plugins=(git brew npm)
 
 DEFAULT_USER=$USER
 
@@ -93,6 +93,15 @@ source $(brew --prefix)/etc/profile.d/z.sh
 # Example aliases
 alias zshconfig="$EDITOR ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+fpath=(~/.oh-my-zsh-custom/completions ~/.oh-my-zsh-custom/functions $fpath)
+
+autoload apache
+# compsys initialization
+autoload -U compinit
+compinit
+ 
+# show completion menu when number of options is at least 2
+zstyle ':completion:*' menu select=2
 
 # Keypad
 # 0 . Enter

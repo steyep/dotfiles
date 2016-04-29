@@ -1,0 +1,38 @@
+local flag="$HOME/.apache-noprivs"
+local pid="$(apachectl -t -D DUMP_RUN_CFG | grep PidFile | sed 's/^[^"]*"\(.*\).$/\1/')"
+local cmd="apachectl"
+local super=''
+
+[ ! -f $pid ] && find $(dirname $flag) -maxdepth 1 -type f -name $(basename $flag) -delete
+local args=()
+
+for arg in $@;
+do
+  case "$arg" in
+    noprivs)
+      touch $flag
+      continue
+    ;;
+    status)
+      echo "Apache is $([ ! -f $pid ] && echo "not ")running"
+      return
+    ;;
+    -k)
+      continue
+    ;;
+    start|restart|graceful|graceful-stop|stop)
+      super='sudo'
+      args+=("-k" $arg)
+      continue
+    ;;
+  esac
+  args+=($arg)
+done
+
+if [ -f $flag ]; then
+  super=''
+  cmd+=" -f /usr/local/etc/apache2/2.4/httpd-nopriv.conf"
+fi
+
+eval $(echo $super $cmd ${args[@]} | awk '{gsub(/^ +| +$/,"")} {print $0}')
+
