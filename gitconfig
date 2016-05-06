@@ -1,8 +1,10 @@
 [user]
 	name = Stephen Pennell
+[init]
+	templatedir = ~/.git-template
 [core]
 	excludesfile = ~/.gitignore_global
-  editor = 'subl' --wait
+  editor = 'vi'
 [mergetool "Kaleidoscope"]
 	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
 	trustexitcode = true
@@ -30,5 +32,9 @@
 	required = true
 [url "git@github.com:steyep/"]
 	insteadof = git:
+[commit]
+	template = ~/.gitmessage
+[color]
+  ui = auto
 [include]
 	path = ~/.gitconfig.local
