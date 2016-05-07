@@ -1,40 +1,40 @@
 [user]
-	name = Stephen Pennell
+  name = Stephen Pennell
 [init]
-	templatedir = ~/.git-template
+  templatedir = ~/.git-template
 [core]
-	excludesfile = ~/.gitignore_global
+  excludesfile = ~/.gitignore_global
   editor = 'vi'
 [mergetool "Kaleidoscope"]
-	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-	trustexitcode = true
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+  trustexitcode = true
 [merge]
-	tool = Kaleidoscope
+  tool = Kaleidoscope
 [difftool "Kaleidoscope"]
-	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [difftool]
-	prompt = false
+  prompt = false
 [mergetool]
-	prompt = false
+  prompt = false
 [diff]
-	tool = Kaleidoscope
+  tool = Kaleidoscope
 [diff "pdf"]
-	textconv = /usr/local/bin/pdf2text
+  textconv = /usr/local/bin/pdf2text
 [alias]
-	up = !"git fetch --all -v -p"
+  up = !"git fetch --all -v -p"
   lg = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
   cdiff = !sh -c \"git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative ${1}..${2}\" -
 [push]
-	default = simple
+  default = simple
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
 [url "git@github.com:steyep/"]
-	insteadof = git:
+  insteadof = git:
 [commit]
-	template = ~/.gitmessage
+  template = ~/.gitmessage
 [color]
   ui = auto
 [include]
-	path = ~/.gitconfig.local
+  path = ~/.gitconfig.local
