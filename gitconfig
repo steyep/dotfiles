@@ -4,7 +4,7 @@
   templatedir = ~/.git-template
 [core]
   excludesfile = ~/.gitignore_global
-  editor = 'vi'
+  editor = 'vim'
 [mergetool "Kaleidoscope"]
   cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
   trustexitcode = true
