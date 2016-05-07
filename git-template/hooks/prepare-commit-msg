@@ -1,0 +1,6 @@
+#!/bin/sh
+branchPath=$(git symbolic-ref -q HEAD)
+if [[ "$branchPath" =~ ([A-Z]+-[0-9]+) ]];
+  then
+  [[ $(head -n1 $1) ]] && printf '0i\n%s\n%s\n\n.\nwq\n' "# Jira Ticket:" "${BASH_REMATCH[0]}" | ed $1 > /dev/null
+fi
