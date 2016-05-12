@@ -6,6 +6,6 @@ alias dt='cd ~/Desktop'
 alias tti-db="sh $HOME/Sites/cg_scripts/tti-db/tti-db"
 alias sql="mysql.server"
 alias jira="node $HOME/git_repos/jira-cmd/bin/jira.js"
-alias apachelog='subl /usr/local/var/log/apache2'
+alias apachelog="$EDITOR /usr/local/var/log/apache2"
 
 [ -d ${apachedir=$(echo /usr/local/etc/apache2/2.4)} ] && alias apacheconfig="$EDITOR $apachedir"

@@ -68,14 +68,12 @@ export EDITOR='subl'
 
 # Env
 source $HOME/.env
-# export MANPATH="/usr/local/man:$MANPATH"
 
 # Aliases
 source $HOME/.aliases
 
 # Oh-My-Zsh Plugins
 source $ZSH/oh-my-zsh.sh
-source $(brew --prefix)/etc/profile.d/z.sh
 [ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
 # source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -92,16 +90,18 @@ source $(brew --prefix)/etc/profile.d/z.sh
 #
 # Example aliases
 alias zshconfig="$EDITOR ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-fpath=(~/.oh-my-zsh-custom/completions ~/.oh-my-zsh-custom/functions $fpath)
 
-autoload apache
+# ZSH Completions
+fpath=($ZSH_CUSTOM/completions $fpath)
+
 # compsys initialization
 autoload -U compinit
 compinit
- 
-# show completion menu when number of options is at least 2
-zstyle ':completion:*' menu select=2
+
+# Load Functions
+for function in $ZSH_CUSTOM/functions/*; do
+  source $function
+done
 
 # Keypad
 # 0 . Enter

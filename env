@@ -1,4 +1,6 @@
-export PATH="$(brew --prefix  homebrew/php/php55)/bin:$PATH"
+if command -v brew >/dev/null 2>&1; then
+  [[ "$(brew ls --versions php55)" ]] &&  export PATH="$(brew --prefix  homebrew/php/php55)/bin:$PATH"
+fi
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:$HOME/bin"
 export GIT_TEMPLATE_DIR="$HOME/.git-template"
@@ -8,7 +10,3 @@ export GIT_TEMPLATE_DIR="$HOME/.git-template"
 
 # Remove Dups
 export PATH="$(echo "$PATH" | /usr/bin/awk 'BEGIN{RS=":";}{sub(sprintf("%c$",10),"");if(A[$0]){}else{A[$0]=1;printf(((NR==1)?"":":")$0)}}')"
-
-# Sometimes the Munki config in $PATH causes `brew doctor` to bark
-# Rather than removing it from $PATH, just set `PATH="$PATH_NOMUNKI"` in the active session
-export PATH_NOMUNKI=$(echo $PATH | sed -e 's;:/usr/local/munki;;')
