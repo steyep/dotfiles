@@ -15,7 +15,11 @@ function apache() {
         continue
       ;;
       status)
-        echo "Apache is $([ ! -f $pid ] && echo "not ")running"
+        if [ ! -f $pid ]; then
+          echo "Apache is not running"
+        else        
+          echo "Apache is running on $([ -f $flag ] && echo "non-")privileged ports"
+        fi
         return
       ;;
       -k)

@@ -94,9 +94,10 @@ alias zshconfig="$EDITOR ~/.zshrc"
 # ZSH Completions
 fpath=($ZSH_CUSTOM/completions $fpath)
 
-# compsys initialization
 autoload -U compinit
 compinit
+
+zstyle ':completion:*' verbose yes
 
 # Load Functions
 for function in $ZSH_CUSTOM/functions/*; do
