@@ -9,3 +9,4 @@ alias jira="node $HOME/git_repos/jira-cmd/bin/jira.js"
 alias apachelog="$EDITOR /usr/local/var/log/apache2"
 
 [ -d ${apachedir=$(echo /usr/local/etc/apache2/2.4)} ] && alias apacheconfig="$EDITOR $apachedir"
+which tree &> /dev/null && alias tree="tree -C"

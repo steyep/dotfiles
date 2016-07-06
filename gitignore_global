@@ -1,3 +1,11 @@
+# Local admin theme
+sites/all/themes/adminimal_theme
+
+# fp local previews:
+config/
+template.php
+preview/
+
 *~
 
 # OS generated files #
@@ -10,3 +18,4 @@
 ehthumbs.db
 Thumbs.db
 .AppleDouble
+
