@@ -1,5 +1,5 @@
 if command -v brew >/dev/null 2>&1; then
-  [[ "$(brew ls --versions php55)" ]] &&  export PATH="$(brew --prefix  homebrew/php/php55)/bin:$PATH"
+  [[ "$(brew ls --versions php55)" ]] && export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
 fi
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:$HOME/bin"

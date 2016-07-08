@@ -26,6 +26,11 @@
   cdiff = !sh -c \"git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative ${1}..${2}\" -
   pl = !"git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d"
   ct = !"f() { git checkout -t origin/$1; }; f"
+  hide = update-index --assume-unchanged
+  unhide = update-index --no-assume-unchanged
+  unhide-all = update-index --really-refresh
+  hidden = !git ls-files -v | grep \"^[a-z]\"
+  ignored = !git status -s --ignored | grep \"^!!\"
 [push]
   default = simple
 [filter "lfs"]
@@ -40,3 +45,4 @@
   ui = auto
 [include]
   path = ~/.gitconfig.local
+  
