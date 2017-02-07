@@ -1,24 +1,25 @@
 function apache() {
-  local flag="$HOME/.apache-noprivs"
-  local pid="$(apachectl -t -D DUMP_RUN_CFG | grep PidFile | sed 's/^[^"]*"\(.*\).$/\1/')"
   local cmd="apachectl"
   local super=''
+  # Is Apache running?
+  local apache_running=$(ps aux | grep httpd | grep -v grep)
+  # Does Apache require sudo?
+  local apache_root=$([[ "$apache_running" ]] && echo "$apache_running" | awk '{ if ($1 == "root") print $1;}' || echo "root")
 
-  [ ! -f $pid ] && find $(dirname $flag) -maxdepth 1 -type f -name $(basename $flag) -delete
   local args=()
 
   for arg in $@;
   do
     case "$arg" in
       --no-privs|-P)
-        touch $flag
+        unset apache_root
         continue
       ;;
       status)
-        if [ ! -f $pid ]; then
+        if [[ ! "$apache_running" ]]; then
           echo "Apache is not running"
         else        
-          echo "Apache is running on $([ -f $flag ] && echo "non-")privileged ports"
+          echo "Apache is running on $([[ ! "$apache_root" ]] && echo "non-")privileged ports"
         fi
         return
       ;;
@@ -34,10 +35,10 @@ function apache() {
     args+=($arg)
   done
 
-  if [ -f $flag ]; then
+  if [[ ! "$apache_root" ]]; then
     super=''
     cmd+=" -f /usr/local/etc/apache2/2.4/httpd-nopriv.conf"
   fi
-
+  
   eval $(echo $super $cmd ${args[@]} | awk '{gsub(/^ +| +$/,"")} {print $0}')
 }
