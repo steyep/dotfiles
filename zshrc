@@ -49,7 +49,7 @@ ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew npm)
+plugins=(git npm)
 
 DEFAULT_USER=$USER
 
@@ -98,6 +98,8 @@ autoload -U compinit
 compinit
 
 zstyle ':completion:*' verbose yes
+zstyle ':completion:*' rehash true
+
 
 # Load Functions
 for function in $ZSH_CUSTOM/functions/*; do
@@ -126,3 +128,5 @@ bindkey -s "^[Ok" "+"
 bindkey -s "^[Om" "-"
 bindkey -s "^[Oj" "*"
 bindkey -s "^[Oo" "/"
+
+[ -f $HOME/.phpvm ] && source $HOME/.phpvm
