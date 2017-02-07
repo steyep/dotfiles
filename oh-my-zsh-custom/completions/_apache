@@ -1,0 +1,48 @@
+#compdef apache
+
+_apache() {
+  typeset -A opt_args
+
+  local context state line
+
+  _arguments -s -S \
+    "(-v)-P[Start Apache on non-privileged ports <8080>]" \
+    "(-v)-D[Define a name for use in <IfDefine name> directives]:Directive Name:" \
+    "(-v)-d[Specify an alternate initial ServerRoot]:directory:_files -/" \
+    "(-v)-f[Specify an alternate ServerConfigFile]:Server Conf File:->conf_file" \
+    "(-v)-C[Process directive before reading config files]:Directive Name:" \
+    "(-v)-c[Process directive after reading config files]:Directive Name:" \
+    "(-v)-e[Show startup errors of level]:Level:((\
+        emerg\:'Emergencies - system is unusable.' \
+        alert\:'Action must be taken immediately.' \
+        crit\:'Critical Conditions.' \
+        error\:'Error conditions.' \
+        warn\:'Warning conditions.' \
+        notice\:'Normal but significant condition.' \
+        info\:'Informational.' \
+        debug\:'Debug-level messages' \
+        trace1\:'Trace messages' \
+        trace2\:'Trace messages' \
+        trace3\:'Trace messages' \
+        trace4\:'Trace messages' \
+        trace5\:'Trace messages' \
+        trace6\:'Trace messages' \
+        trace7\:'Trace messages, dumping large amounts of data' \
+        trace8\:'Trace messages, dumping large amounts of data'))" \
+    "(-v)-E[Log startup errors to file]:filename:" \
+    "(-P -D -d -f -C -c -e -V -h -l -L -S -M -t -T -X -E)-v[Show version number]"\
+    "(-v)-V[Show compile settings]" \
+    "(-v)-h[List available command line options (this page)]" \
+    "(-v)-l[List compiled in modules]" \
+    "(-v)-L[List available configuration directives]" \
+    "(-v)-S[Synonym for -t -D DUMP_VHOSTS -D DUMP_RUN_CFG]" \
+    "(-v)-M[Synonym for -t -D DUMP_MODULES]" \
+    "(-v)-t[Run syntax check for config files]:settings:->setting" \
+    "(-v)-T[Start without DocumentRoot(s) check]" \
+    "(-v)-X[Debug mode (only one worker, do not detach]" \
+    && return 0
+
+    (( $+opt_args[-d] ))
+}
+
+_apache "$@"
