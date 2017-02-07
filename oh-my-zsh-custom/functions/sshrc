@@ -1,0 +1,6 @@
+function sshrc() {
+  pushd $HOME/.sshrc.d > /dev/null
+  gtar c -C${PWD} $(find . -mindepth 1) | ssh $1 'tar mx -C${HOME}' 
+  ssh -t $1
+  popd > /dev/null
+}
