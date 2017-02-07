@@ -5,3 +5,4 @@ filetype plugin indent on
 set number
 set background=dark
 colorscheme material-theme
+map <C-n> :NERDTreeToggle<CR>
