@@ -129,4 +129,7 @@ bindkey -s "^[Om" "-"
 bindkey -s "^[Oj" "*"
 bindkey -s "^[Oo" "/"
 
+# Load private key passphrases from MacOS Keychain
+{ eval `ssh-agent`; ssh-add -A;  } &>/dev/null
+
 [ -f $HOME/.phpvm ] && source $HOME/.phpvm
