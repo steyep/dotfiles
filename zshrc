@@ -130,6 +130,6 @@ bindkey -s "^[Oj" "*"
 bindkey -s "^[Oo" "/"
 
 # Load private key passphrases from MacOS Keychain
-{ eval `ssh-agent`; ssh-add -A;  } &>/dev/null
+{ [[ "`pgrep ssh-agent`" ]] || eval `ssh-agent`; ssh-add -A;  } &>/dev/null
 
-[ -f $HOME/.phpvm ] && source $HOME/.phpvm
+test -f $HOME/.phpvm && source $HOME/.phpvm || true
