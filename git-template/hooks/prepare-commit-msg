@@ -4,7 +4,7 @@ if [[ "$branchPath" =~ ([A-Z]+-[0-9]+) ]];
   then
   line_one="$(head -n1 $1)"
   ticket="${BASH_REMATCH[0]}"
-  [[ "$line_one" && "$line_one" != *"$ticket"* ]] && 
+  [[ "$ticket" && "$line_one" != *"$ticket"* ]] && 
     printf '0i\n%s\n%s\n\n.\nwq\n' "# Jira Ticket:" "$ticket" | ed $1 > /dev/null
   exit 0
 fi

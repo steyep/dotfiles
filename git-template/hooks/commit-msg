@@ -1,7 +1,27 @@
 #!/bin/sh
+issue_regex='[A-Z]+-[0-9]+:?[[:space:]]*$'
+status=1
+
 while IFS='' read -r line || [[ -n "$line" ]]; do
-  [[ "$line" =~ ^(#|[A-Z]+-[0-9]+:?[[:space:]]*$) || -z "${line// }" ]] && continue
-  exit 0
+	[[ "$line" =~ ^(#|$issue_regex) || -z "${line// }" ]] && continue
+	status=0
 done < "$1"
-echo "Aborting commit; you did not edit the message."
-exit 1
+
+if [[ "$status" == "1" ]]; then
+	echo "Aborting commit; you did not edit the message."
+else
+	if [[ "$(head -n1 "$1")" == "# Jira Ticket"* ]]; then
+		issue="$(sed -n '2p' < "$1")"
+		if [[ "$issue" =~ $issue_regex ]]; then
+			msg=$(grep -E '^[^#]+' "$1" | sed -n '2p')
+			description="$(awk "/$msg/{y=1;next}y" "$1")"
+			cat > "$1" <<-END_MSG
+			$issue: $msg
+			
+			$description
+			END_MSG
+		fi
+	fi
+fi
+
+exit $status
