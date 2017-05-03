@@ -14,7 +14,7 @@ else
 		issue="$(sed -n '2p' < "$1")"
 		if [[ "$issue" =~ $issue_regex ]]; then
 			msg=$(grep -E '^[^#]+' "$1" | sed -n '2p')
-			description="$(awk "/$msg/{y=1;next}y" "$1")"
+			description="$(cat "$1" | sed "1,/$msg/d")"
 			cat > "$1" <<-END_MSG
 			$issue: $msg
 			
