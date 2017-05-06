@@ -13,8 +13,8 @@ else
 	if [[ "$(head -n1 "$1")" == "# Jira Ticket"* ]]; then
 		issue="$(sed -n '2p' < "$1")"
 		if [[ "$issue" =~ $issue_regex ]]; then
-			msg=$(grep -E '^[^#]+' "$1" | sed -n '2p')
-			description="$(cat "$1" | sed "1,/$msg/d")"
+			read -r line msg <<< "$(grep -En '^[^#]+' "$1" | sed 's/:/ /' | sed -n '2p')"
+			description="$(cat "$1" | sed "1,${line}d")"
 			cat > "$1" <<-END_MSG
 			$issue: $msg
 			
