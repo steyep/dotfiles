@@ -35,11 +35,12 @@
 [push]
   default = simple
 [filter "lfs"]
-  clean = git-lfs clean %f
-  smudge = git-lfs smudge %f
-  required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 [url "git@github.com:steyep/"]
-  insteadof = git:
+  insteadof = gt:
 [commit]
   template = ~/.gitmessage
 [color]
