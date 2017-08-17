@@ -32,6 +32,7 @@
   hidden = !git ls-files -v | grep \"^[a-z]\"
   ignored = !git status -s --ignored | grep \"^!!\"
   pr = !sh -c \"git fetch upstream pull-requests/${1}/from:pr/${1} && git checkout pr/${1}\" -
+  remove-prs = !git branch -D $(git branch -l | grep 'pr/' | grep -v '*') 2>/dev/null || echo "Unable to delete PR branches."
 [push]
   default = simple
 [filter "lfs"]
