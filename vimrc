@@ -4,5 +4,4 @@ filetype plugin indent on
 :imap ;; <Esc>
 set number
 set background=dark
-colorscheme material-theme
 map <C-n> :NERDTreeToggle<CR>
