@@ -1,1 +1,36 @@
-/Users/cg173410/sites/cg_scripts/refresh-dev-hosts/refresh-devs.sh
+#! /bin/bash
+
+error() { echo ${RED}'\033[0;31mError: \033[0m'${1}; exit 1; }
+
+help() {
+	local script="$(basename "$0")"
+	cat <<-END_USAGE
+	Name: $script
+
+	Description: Creates a tmux session for each environment found in ~/.ssh/config
+             for the specified client and updates each environment simultaneously.
+	
+	Usage: $script <client>
+
+	END_USAGE
+	exit 0
+}
+
+session_name="refresh-devs"
+client="$1"
+[[ ! "${client}" ]] && help
+environments=($(grep "hostname ${client}-" $HOME/.ssh/config | awk '{ print $2 }'))
+[[ ! "$environments" ]] && error "No hostnames found in ~/.ssh/config matching \"$client\""
+
+tmux new-session -d -s "$session_name" "ssh ${environments[0]}"
+unset environments[0]
+
+for host in ${environments[@]}; do
+	tmux select-window -t ${session_name}:0
+	tmux split-window -h -t ${session_name}:0 "ssh $host"
+done
+tmux select-pane -t 0
+tmux set-window-option synchronize-panes on > /dev/null
+tmux ls
+
+tmux attach -t "$session_name"
