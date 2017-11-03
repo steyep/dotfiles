@@ -1,0 +1,52 @@
+#!/bin/sh
+curr_branch="$(git branch -l | grep '*' | awk '{ print $2 }')"
+dest_branch="master"
+status=0
+dest="${1:-$dest_branch}"
+src="${2:-$curr_branch}"
+
+for branch in $dest $src; do
+  git rev-parse --verify $branch &> /dev/null || {
+    echo "Branch does not exist: \"$branch\""
+    echo "Help:"
+    echo "  $(basename "$0") [destination-branch] [source-branch]"; 
+    echo
+    exit 1
+  }
+done
+
+quit() {
+  git checkout $curr_branch &> /dev/null
+  exit $status
+}
+
+checkout="$(git checkout "$dest" 2>&1)"
+[[ "$checkout" == *"error"* ]] && {
+  echo "$checkout";
+  status=1;
+  quit;
+}
+
+merge_result=$(git merge --no-commit --no-ff "$src" 2>&1)
+case "$merge_result" in
+  *"Automatic merge failed"*)
+    echo "Merge test failed. ($src --> $dest)"
+    echo
+    echo "$merge_result"
+    echo
+    status=1
+    ;;
+  *"Automatic merge went well"*)
+    echo "Merge test passed! ($src --> $dest)"
+    ;;
+  *"up-to-date"*)
+    echo "Already up-to-date. ($src --> $dest)"
+    ;;
+  *)
+    echo "$merge_result"
+    status=1
+    ;;
+esac
+
+test -f $(git rev-parse --git-dir)/MERGE_HEAD && git merge --abort
+quit

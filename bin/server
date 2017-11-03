@@ -1,0 +1,36 @@
+#!/bin/sh
+USAGE=$(cat <<EOF_USAGE
+
+Usage: $(basename "$0") [ start | stop | help ]
+    
+  start                 : Starts a simple HTTP server in ${PWD}
+                        : on port 8000
+  stop                  : Stops the server
+  help                  : Shows this message.
+ 
+EOF_USAGE
+)
+
+CMD='python -m SimpleHTTPServer'
+start() {
+  stop &>/dev/null
+  $CMD &
+  open 'http://localhost:8000'
+}
+
+stop() {
+  server_pid=$(ps ax | grep -v grep | grep -i "$CMD" | awk '{ print $1 }')
+  test $server_pid && 
+    { kill -9 $server_pid &>/dev/null && echo "Server closed."; } || 
+    echo "No server found."
+}
+
+case "$1" in
+  start)
+    start ;;
+  stop)
+    stop ;;
+  *) echo "$USAGE" >&2 ;;
+esac
+
+exit 0

@@ -1,0 +1,5 @@
+#! /bin/sh
+
+pull_request="$1"
+git fetch upstream pull-requests/${pull_request}/from:pr/${pull_request} && git checkout pr/${pull_request}
+[[ "$(git --no-pager log --format=%s --abbrev-commit -n 1)" =~ ^[A-Z]+-[0-9]+ ]] && git branch -m "pr/${BASH_REMATCH[*]}"

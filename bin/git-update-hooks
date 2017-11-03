@@ -1,0 +1,14 @@
+#! /bin/sh
+templates="$(eval echo $(git config --get init.templatedir))"
+hooks=$(git rev-parse --git-dir)/hooks
+
+for template_hook in $(find $templates/hooks ! -name '*.sample' -type f); do
+  hook="$hooks/$(basename $template_hook)"
+  test ! -f $hook && continue
+  [[ "$(diff $template_hook $hook)" ]] && read -p "Update ${hook} ? [y/n]: " answer
+  [[ "$answer" =~ ^[yY] ]] && rm -f $hook
+  unset answer
+done
+
+git init
+exit 0
