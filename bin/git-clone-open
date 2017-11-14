@@ -1,0 +1,17 @@
+#! /bin/sh
+repo="$1"
+directory="$2"
+
+# Determine the directory from the repo name.
+if [[ ! "$directory" ]]; then
+  directory="${PWD}/$(echo "${repo##*[:\/]}" | sed 's/\.git$//')"
+fi
+
+# Clone the repo
+git clone "$repo" "$directory"
+
+# If cloned successfully, cd into the directory.
+if [[ "$?" == "0" ]]; then
+  cd "$directory"
+  exec $SHELL
+fi
