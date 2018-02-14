@@ -1,0 +1,13 @@
+#! /bin/sh
+process="$1"
+process_search="[${process:0:1}]${process:1}"
+
+processes="$(ps ax | grep -i "$process_search" | grep -v "$0")"
+if [[ "$processes" ]]; then
+  echo "$processes"
+  echo
+  read -p "Kill all of the above processes? [y/n]: " response
+  [[ "$response" =~ ^[yY] ]] && kill -9 $(echo "$processes" | awk '{ print $1 }')
+else
+  exit 1
+fi
