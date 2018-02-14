@@ -1,0 +1,18 @@
+#! /bin/bash
+
+drupal_root="$(drush status --fields=root | awk '{ print $4 }')"
+
+if [[ ! "$drupal_root" ]]; then
+  echo "Could not find Drupal root from ${PWD}"
+  exit 1
+fi
+
+for module in coder coder_review; do
+  [[ "$(drush pmi $module --fields=status | awk '{ print $3 }')" != "enabled" ]] && drush en $module -y
+done
+
+drush coder --minor --comment --i18n --security --sql --style --no-empty $(basename ${drupal_root}/sites/all/modules/{custom,features}/*)
+echo
+echo "Running PHP Mess Detector"
+echo
+for i in ${drupal_root}/sites/all/modules/{custom,features}/*; do phpmd $i/ text unusedcode --exclude "*.features.inc"; done
