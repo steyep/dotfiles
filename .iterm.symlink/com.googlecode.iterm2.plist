@@ -639,15 +639,15 @@
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>1520 994 400 129 0 0 3440 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>923 -556 620 392 393 -1050 1680 1050 </string>
+	<string>970 786 620 392 0 0 2560 1440 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>3709 82 599 519 3440 0 3440 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>3850 607 796 473 3440 0 3440 1440 </string>
+	<string>4855 609 796 473 3440 0 3440 1440 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>332 833 592 584 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 3440 1440 0 0 3440 1417 </string>
+	<string>0 0 1680 1050 0 0 1680 1027 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2347,13 +2347,15 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2017-11-02T13:45:52Z</date>
+	<date>2018-03-07T16:09:15Z</date>
+	<key>SUSkippedVersion</key>
+	<string>3.1.6beta4</string>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>ShowPaneTitles</key>
 	<false/>
 	<key>SmartPlacement</key>
@@ -2377,7 +2379,7 @@
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1471030144</real>
+	<real>1509750784</real>
 	<key>URLHandlersByGuid</key>
 	<dict>
 		<key>ssh</key>
@@ -2401,10 +2403,12 @@
 	<string>/-+\~_.</string>
 	<key>findIgnoreCase_iTerm</key>
 	<true/>
+	<key>findMode_iTerm</key>
+	<integer>0</integer>
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.5.beta.1</string>
+	<string>3.1.5.beta.2</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

@@ -1,13 +1,11 @@
 # Aliases
-alias updatedb="sudo /usr/libexec/locate.updatedb"
 alias drh='drush help | grep'
 alias beep='echo -en "\a"'
 alias dt='cd ~/Desktop'
-alias tti-db="sh $HOME/Sites/cg_scripts/tti-db/tti-db"
 alias sql="mysql.server"
-alias jira="node $HOME/git_repos/jira-cmd/bin/jira.js"
 alias apachelog="$EDITOR /usr/local/var/log/httpd"
-alias drupalcs="phpcs --standard=Drupal --extensions='php,module,inc,install,test,profile,theme,js,css,info,txt'"
+alias drupalcs="phpcs --colors --standard=Drupal,DrupalPractice --extensions='php,module,inc,install,test,profile,theme,js,css,info,txt'"
+alias libreoffice="/Applications/LibreOffice.app/Contents/MacOS/soffice"
 
 [ -d ${apachedir=$(echo /usr/local/etc/httpd)} ] && alias apacheconfig="$EDITOR $apachedir"
 [ -d ${phpdir=$(echo /usr/local/etc/php)} ] && alias phpconfig="$EDITOR $phpdir"

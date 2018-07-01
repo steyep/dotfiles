@@ -37,7 +37,7 @@ function apache() {
 
   if [[ ! "$apache_root" ]]; then
     super=''
-    cmd+=" -f /usr/local/etc/apache2/2.4/httpd-nopriv.conf"
+    cmd+=" -f /usr/local/etc/httpd/httpd-nopriv.conf"
   fi
   
   eval $(echo $super $cmd ${args[@]} | awk '{gsub(/^ +| +$/,"")} {print $0}')

@@ -7,12 +7,16 @@ if [[ ! "$drupal_root" ]]; then
   exit 1
 fi
 
-for module in coder coder_review; do
-  [[ "$(drush pmi $module --fields=status | awk '{ print $3 }')" != "enabled" ]] && drush en $module -y
-done
+[[ "$(drush pmi coder --fields=status | awk '{ print $3 }')" != "enabled" ]] && drush dl coder-7.x-2.x-dev -y
+drush en coder coder_review -y
 
 drush coder --minor --comment --i18n --security --sql --style --no-empty $(basename ${drupal_root}/sites/all/modules/{custom,features}/*)
 echo
 echo "Running PHP Mess Detector"
 echo
 for i in ${drupal_root}/sites/all/modules/{custom,features}/*; do phpmd $i/ text unusedcode --exclude "*.features.inc"; done
+
+# echo
+# echo "Running PHP Copy/Paste Detector"
+# echo
+# for path in sites/all/modules/{custom,features}/*; do phpmd $path/ text unusedcode --exclude "*.features.inc"; done

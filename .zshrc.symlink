@@ -64,7 +64,6 @@ DEFAULT_USER=$USER
 # else
 #   export EDITOR='mvim'
 # fi
-export EDITOR='subl'
 
 # Env
 source $HOME/.env
