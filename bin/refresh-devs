@@ -9,7 +9,7 @@ help() {
 
 	Description: Creates a tmux session for each environment found in ~/.ssh/config
              for the specified client and updates each environment simultaneously.
-
+	
 	Usage: $script <client>
 
 	END_USAGE
@@ -17,17 +17,9 @@ help() {
 }
 
 session_name="refresh-devs"
-[[ ! "$1" ]] && help
-environments=()
-
-while (( $# )); do
-	client="$1" && shift
-	ssh_config=$HOME/.ssh/config
-	grep -q "host ${client}" $ssh_config && { environments+=($client); continue; }
-	hostnames=($(grep "hostname ${client}-" $ssh_config | awk '{ print $2 }'))
-	[[ "$hostnames" ]] && { environments=(${hostnames[@]}); break; }
-done
-
+client="$1"
+[[ ! "${client}" ]] && help
+environments=($(grep "hostname ${client}-" $HOME/.ssh/config | awk '{ print $2 }'))
 [[ ! "$environments" ]] && error "No hostnames found in ~/.ssh/config matching \"$client\""
 
 tmux new-session -d -s "$session_name" "ssh ${environments[0]}"

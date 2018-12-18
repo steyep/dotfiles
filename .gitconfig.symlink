@@ -42,14 +42,10 @@
 	required = true
 [url "git@github.com:steyep/"]
   insteadof = gt:
-[url "https://git.drupal.org/project/"]
-  insteadof = drupal:
 [commit]
   template = ~/.gitmessage
 [color]
   ui = auto
 [include]
   path = ~/.gitconfig.local
-[pager]
-  # Jump to branch HEAD when showing all branches
-	log = less -Gp HEAD
+  
