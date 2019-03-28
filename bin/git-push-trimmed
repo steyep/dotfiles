@@ -1,0 +1,24 @@
+#! /bin/sh
+local_branch="${1}"
+
+# No branch was supplied so default to HEAD
+if [[ ! "${local_branch}" ]]; then
+  local_branch="HEAD"
+# at least one argument was defined.
+else
+  # If the argument was a branch, we need to shift the args.
+  if [[ "$(echo "HEAD $(git branch -l)" | grep $local_branch 2>/dev/null)" ]]; then
+    shift
+  # Otherwise, the arg was not a branch and we'll default to HEAD.
+  else
+    local_branch="HEAD"
+  fi
+fi
+
+if [[ "$local_branch" == "HEAD" ]]; then
+  local_branch="$(git branch | grep '*' | awk '{ print $2 }')"
+fi
+
+# Strip description from branch name before pushing.
+remote_branch="$(echo $local_branch | sed -E 's/[^0-9]+$//')"
+git push origin ${local_branch}:${remote_branch:-${local_branch}} $@
