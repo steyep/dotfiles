@@ -17,6 +17,9 @@ help() {
 }
 
 session_name="refresh-devs"
+index="$(tmux ls | grep -o "$session_name" | wc -l 2> /dev/null)"
+session_name="${session_name}_${index// }"
+
 [[ ! "$1" ]] && help
 environments=()
 
