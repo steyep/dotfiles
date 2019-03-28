@@ -20,5 +20,5 @@ if [[ "$local_branch" == "HEAD" ]]; then
 fi
 
 # Strip description from branch name before pushing.
-remote_branch="$(echo $local_branch | sed -E 's/[^0-9]+$//')"
+remote_branch="$(echo $local_branch | awk -F'-' '{ print match($2, /[0-9]/) ? $1FS$2 : $0 }')"
 git push origin ${local_branch}:${remote_branch:-${local_branch}} $@
