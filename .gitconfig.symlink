@@ -25,7 +25,6 @@
   lg = log --all --graph --decorate --color
   cdiff = !sh -c \"git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative ${1}..${2}\" -
   pl = !"git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d"
-  ct = !"f() { git checkout -t origin/$1; }; f"
   hide = update-index --assume-unchanged
   unhide = update-index --no-assume-unchanged
   unhide-all = update-index --really-refresh
@@ -52,4 +51,4 @@
   path = ~/.gitconfig.local
 [pager]
   # Jump to branch HEAD when showing all branches
-	log = less -Gp HEAD
+	log = less -Gp '[^/]HEAD'
