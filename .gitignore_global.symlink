@@ -12,6 +12,7 @@ sites/all/**/diff
 
 *~
 .vscode
+.vs
 
 # OS generated files #
 ######################
@@ -24,3 +25,7 @@ ehthumbs.db
 Thumbs.db
 .AppleDouble
 
+# Dotnet Ignores
+obj
+bin
+appsettings.Development.json
