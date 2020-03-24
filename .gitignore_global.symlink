@@ -5,11 +5,6 @@ sites/all/**/coder
 sites/all/**/navbar
 sites/all/**/diff
 
-# fp local previews:
-/config
-/template.php
-/preview
-
 *~
 .vscode
 .vs
