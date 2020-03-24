@@ -32,6 +32,7 @@
   pr = checkout-pull-request
   remove-prs = !git branch -D $(git branch -l | grep 'pr/' | grep -v '*') 2>/dev/null || echo "Unable to delete PR branches."
   ri = !GIT_EDITOR='code --reuse-window --wait' git rebase --interactive
+  mdr = merge-dry-run
 [push]
   default = simple
 [filter "lfs"]
