@@ -8,6 +8,7 @@ sites/all/**/diff
 *~
 .vscode
 .vs
+.test
 
 # OS generated files #
 ######################

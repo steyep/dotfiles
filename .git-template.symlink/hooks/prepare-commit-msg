@@ -1,10 +1,9 @@
 #!/bin/sh
 branchPath=$(git symbolic-ref -q HEAD)
-if [[ "$branchPath" =~ ([A-Z]+-[0-9]+) ]];
-  then
+if [[ "$branchPath" =~ ([Tt][Ww][0-9]+) ]]; then
   line_one="$(head -n1 $1)"
-  ticket="${BASH_REMATCH[0]}"
-  [[ "$ticket" && "$line_one" != *"$ticket"* ]] && 
-    printf '0i\n%s\n%s\n\n.\nwq\n' "# Jira Ticket:" "$ticket" | ed $1 > /dev/null
+  ticket="$(echo ${BASH_REMATCH[0]} | tr [a-z] [A-Z])"
+  [[ "$ticket" && "$line_one" != *"$ticket"* ]] &&
+    printf '0i\n%s\n%s\n\n.\nwq\n' "# Teamwork Issue:" "$ticket" | ed $1 > /dev/null
   exit 0
 fi
