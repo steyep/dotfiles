@@ -6,7 +6,6 @@ alias sql="mysql.server"
 alias apachelog="$EDITOR /usr/local/var/log/httpd"
 alias drupalcs="phpcs --colors --standard=Drupal,DrupalPractice --extensions='php,module,inc,install,test,profile,theme,js,css,info,txt'"
 alias drupalcbf="phpcbf --colors --standard=Drupal,DrupalPractice --extensions='php,module,inc,install,test,profile,theme,js,css,info,txt'"
-alias libreoffice="/Applications/LibreOffice.app/Contents/MacOS/soffice"
 
 [ -d ${apachedir=$(echo /usr/local/etc/httpd)} ] && alias apacheconfig="$EDITOR $apachedir"
 [ -d ${phpdir=$(echo /usr/local/etc/php)} ] && alias phpconfig="$EDITOR $phpdir"

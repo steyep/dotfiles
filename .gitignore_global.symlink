@@ -9,6 +9,8 @@ sites/all/**/diff
 .vscode
 .vs
 .test
+.local
+local.config.yml
 
 # OS generated files #
 ######################

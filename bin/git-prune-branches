@@ -6,7 +6,7 @@ tmpfile=$git_root/PRUNE_BRANCHES
 root_branch="${1:-master}"
 branches=$(git branch -vv --merged "$root_branch" | grep -v '*')
 echo "$branches" > $tmpfile
-vim $tmpfile
+code --wait $tmpfile
 
 while read line; do
   branch=$(echo "$line" | awk '{ print $1 }')
