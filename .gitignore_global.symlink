@@ -22,8 +22,3 @@ local.config.yml
 ehthumbs.db
 Thumbs.db
 .AppleDouble
-
-# Dotnet Ignores
-obj
-bin
-appsettings.Development.json
