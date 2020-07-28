@@ -4,7 +4,12 @@ test -d $git_root || { echo "Could not find git directory: \"$git_root\""; exit 
 tmpfile=$git_root/PRUNE_BRANCHES
 
 root_branch="${1:-master}"
-branches=$(git branch -vv --merged "$root_branch" | grep -v '*')
+branches=$(git branch -vv --merged "$root_branch" | grep -Ev '\*|master|develop')
+if [[ ! "$branches" ]]; then
+  echo "\033[0;32m\xE2\x9C\x94\033[0m No branches found that haven't been merged into ${root_branch}."
+  exit 0
+fi
+
 echo "$branches" > $tmpfile
 code --wait $tmpfile
 
