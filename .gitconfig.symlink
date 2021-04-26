@@ -10,14 +10,14 @@
   trustexitcode = true
 [merge]
   tool = Kaleidoscope
-[difftool "Kaleidoscope"]
-  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool "vscode"]
+  cmd = code --wait --diff \"$LOCAL\" \"$REMOTE\"
 [difftool]
   prompt = false
 [mergetool]
   prompt = false
 [diff]
-  tool = Kaleidoscope
+  tool = vscode
 [diff "pdf"]
   textconv = /usr/local/bin/pdf2text
 [alias]
@@ -52,4 +52,6 @@
   path = ~/.gitconfig.local
 [pager]
   # Jump to branch HEAD when showing all branches
-	log = less -Gp '[^/]HEAD'
+	lg = less -Gp '[^/]HEAD'
+[pull]
+	rebase = false
