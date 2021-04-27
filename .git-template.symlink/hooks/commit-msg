@@ -1,5 +1,5 @@
 #!/bin/sh
-issue_regex='TW[0-9]+:?[[:space:]]*$'
+issue_regex='[A-Z]+-[0-9]+:?[[:space:]]*$'
 status=1
 
 while IFS='' read -r line || [[ -n "$line" ]]; do
@@ -10,7 +10,7 @@ done < "$1"
 if [[ "$status" == "1" ]]; then
 	echo "Aborting commit; you did not edit the message."
 else
-	if [[ "$(head -n1 "$1")" == "# Teamwork Issue"* ]]; then
+	if [[ "$(head -n1 "$1")" == "# Jira Ticket"* ]]; then
 		issue="$(sed -n '2p' < "$1")"
 		if [[ "$issue" =~ $issue_regex ]]; then
 			read -r line msg <<< "$(grep -En '^[^#]+' "$1" | sed 's/:/ /' | sed -n '2p')"
