@@ -11,6 +11,8 @@ sites/all/**/diff
 .test
 .local
 local.config.yml
+*.sql
+*.sql.gz
 
 # OS generated files #
 ######################
