@@ -1,27 +1,26 @@
-#!/bin/sh
-issue_regex='[A-Z]+-[0-9]+:?[[:space:]]*$'
-status=1
-
-while IFS='' read -r line || [[ -n "$line" ]]; do
-	[[ "$line" =~ ^(#|$issue_regex) || -z "${line// }" ]] && continue
-	status=0
-done < "$1"
-
-if [[ "$status" == "1" ]]; then
-	echo "Aborting commit; you did not edit the message."
-else
-	if [[ "$(head -n1 "$1")" == "# Jira Ticket"* ]]; then
-		issue="$(sed -n '2p' < "$1")"
-		if [[ "$issue" =~ $issue_regex ]]; then
-			read -r line msg <<< "$(grep -En '^[^#]+' "$1" | sed 's/:/ /' | sed -n '2p')"
-			description="$(cat "$1" | sed "1,${line}d")"
-			cat > "$1" <<-END_MSG
-			$issue: $msg
-
-			$description
-			END_MSG
-		fi
+#!/bin/bash
+TICKET_PATTERN='# Jira Ticket: \[([A-z]+-[0-9]+)\]'
+if [[ "$(cat ${1})" =~ ${TICKET_PATTERN} && "${BASH_REMATCH[1]}" ]]; then
+	TICKET_ID=${BASH_REMATCH[1]}
+	read -r LINE MSG <<< "$(grep -En '^[^#]+' "$1" | sed 's/:/ /')"
+	if [[ "${MSG}" ]]; then
+		DESCRIPTION="$(cat "$1" | sed "1,${LINE}d")"
+		printf '%s: %s\n\n%s' "${TICKET_ID}" "${MSG}" "${DESCRIPTION}" > "$1"
 	fi
 fi
 
-exit $status
+GIT_WORKING_DIR=$(git rev-parse --show-toplevel)
+VENDOR_DIR="${GIT_WORKING_DIR}/vendor"
+# Find GrumPHP and run it if it exists.
+test -d ${VENDOR_DIR} && GRUMPHP=(`find ${VENDOR_DIR} -type f -name grumphp`)
+if [[ "${GRUMPHP}" ]]; then
+	export GRUMPHP_GIT_WORKING_DIR=${GIT_WORKING_DIR}
+	GIT_USER=$(git config user.name)
+	GIT_EMAIL=$(git config user.email)
+	COMMIT_MSG_FILE=$1
+	# Fetch the GIT diff and format it as command input:
+	DIFF=$(git -c diff.mnemonicprefix=false --no-pager diff -r -p -m -M --full-index --no-color --staged | cat)
+	# Grumphp env vars
+	(cd "./" && printf "%s\n" "${DIFF}" | 'exec' "${GRUMPHP}" 'git:commit-msg' "--git-user='$GIT_USER'" "--git-email='$GIT_EMAIL'" "$COMMIT_MSG_FILE")
+fi
+exit 0
