@@ -33,8 +33,8 @@
   remove-prs = !git branch -D $(git branch -l | grep 'pr/' | grep -v '*') 2>/dev/null || echo "Unable to delete PR branches."
   ri = !GIT_EDITOR='code --reuse-window --wait' git rebase --interactive
   mdr = merge-dry-run
-  files-changed = !sh -c \"git diff --name-only HEAD ${1:-origin/develop}\" -
-  latest-tag = !git describe --tags --abbrev=0
+  files-changed = !sh -c \"git diff --name-status HEAD ${1:-origin/develop}\" -
+  latest-tag = !git describe --tags $(git rev-list --tags --max-count=1)
 [push]
   default = simple
 [filter "lfs"]
