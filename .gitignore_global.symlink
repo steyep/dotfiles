@@ -1,9 +1,6 @@
-# Local admin theme
-sites/all/themes/adminimal_theme
-sites/all/**/devel
-sites/all/**/coder
-sites/all/**/navbar
-sites/all/**/diff
+# Local dev
+.ddev/nginx/local.conf
+ste_dev
 
 *~
 .vscode
