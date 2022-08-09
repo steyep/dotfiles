@@ -46,8 +46,6 @@
   insteadof = gt:
 [url "https://git.drupal.org/project/"]
   insteadof = drupal:
-[commit]
-  template = ~/.gitmessage
 [color]
   ui = auto
 [include]
