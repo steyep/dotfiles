@@ -35,6 +35,7 @@
   mdr = merge-dry-run
   files-changed = !sh -c \"git diff --name-status HEAD ${1:-origin/develop}\" -
   latest-tag = !git describe --tags $(git rev-list --tags --max-count=1)
+  co = checkout-fuzzy
 [push]
   default = simple
 [filter "lfs"]

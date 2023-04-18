@@ -1,0 +1,30 @@
+#! /bin/sh
+
+if [ $# -ne 1 ]; then
+  echo "$0 requires exactly one argument (the pattern of the branch name being searched)"
+  exit 1
+fi
+
+LOCAL_BRANCHES="$(git branch -l --format='%(refname:short)')"
+echo "${LOCAL_BRANCHES}" | grep -q $1 \
+  && BRANCH_MATCH=($(git branch -l --format='%(refname:short)' | grep $1)) \
+  || BRANCH_MATCH=(${LOCAL_BRANCHES})
+
+if [ ${#BRANCH_MATCH[@]} -gt 1 ]; then
+  select BRANCH in ${BRANCH_MATCH[@]} Quit; do
+    case ${BRANCH} in
+      Quit) exit $EXIT_USER_HALT ;;
+      '') echo "Invalid option. Try another one." >&2; continue ;;
+      *) break ;;
+    esac
+  done
+else
+  BRANCH="${BRANCH_MATCH}"
+fi
+
+if [[ ! "${BRANCH}" ]]; then
+  echo "No local branch matching \"$1\""
+  exit 0
+fi
+
+git checkout "${BRANCH}"
