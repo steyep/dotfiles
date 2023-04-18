@@ -1,6 +1,8 @@
 # Local dev
 .ddev/nginx/local.conf
 ste_dev
+files-private
+.netlify
 
 *~
 .vscode
