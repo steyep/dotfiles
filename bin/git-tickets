@@ -1,0 +1,8 @@
+#!/bin/sh
+# Shows tickets between commits: `git tickets origin/master..origin/develop`
+
+ARGUMENTS=($@)
+(( $# < 1 )) && ARGUMENTS+=("origin/master..origin/develop")
+git log --oneline --no-merges "${ARGUMENTS[@]}" \
+  | grep -Eo '[A-Z]+[0-9]*-[0-9]+' \
+  | sort -u
