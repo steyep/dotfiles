@@ -38,6 +38,8 @@
   co = checkout-fuzzy
   rp = pull --rebase
   rpi = !GIT_EDITOR='code --reuse-window --wait' git pull --rebase=interactive
+  # Shows tickets between commits: `git tickets main..head`
+  tickets = !sh -c \"git log --pretty=oneline "$1" | grep -e '[A-Z]\\+[0-9]*-[0-9]\\+' -o | sort -u \" -
 [push]
   default = simple
 [filter "lfs"]
