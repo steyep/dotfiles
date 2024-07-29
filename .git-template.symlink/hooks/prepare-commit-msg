@@ -2,7 +2,7 @@
 BRANCH_PATH=$(git symbolic-ref -q HEAD)
 # Attempt to pull the JIRA ticket number from the name of the current branch if
 # the ticket number isn't already in the first line of the commit message.
-TICKET_PATTERN='[A-z]+-[0-9]+'
+TICKET_PATTERN='[A-z]+[0-9]*-[0-9]+'
 if [[ "${BRANCH_PATH}" =~ (${TICKET_PATTERN}) ]]; then
   TICKET_ID="${BASH_REMATCH[0]}"
   if [[ "${TICKET_ID}" && ! $(grep -Ei ^${TICKET_ID} $1) ]]; then
