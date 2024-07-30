@@ -5,11 +5,6 @@
 [core]
   excludesfile = ~/.gitignore_global
   editor = 'vim'
-[mergetool "Kaleidoscope"]
-  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-  trustexitcode = true
-[merge]
-  tool = Kaleidoscope
 [difftool "vscode"]
   cmd = code --wait --diff \"$LOCAL\" \"$REMOTE\"
 [difftool]
@@ -18,8 +13,6 @@
   prompt = false
 [diff]
   tool = vscode
-[diff "pdf"]
-  textconv = /usr/local/bin/pdf2text
 [alias]
   up = !"git fetch --all -v -p"
   lg = log --all --graph --decorate --color
