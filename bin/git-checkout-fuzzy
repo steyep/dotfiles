@@ -5,21 +5,25 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-LOCAL_BRANCHES="$(git branch -l --format='%(refname:short)')"
-echo "${LOCAL_BRANCHES}" | grep -q $1 \
-  && BRANCH_MATCH=($(git branch -l --format='%(refname:short)' | grep $1)) \
-  || BRANCH_MATCH=(${LOCAL_BRANCHES})
-
-if [ ${#BRANCH_MATCH[@]} -gt 1 ]; then
-  select BRANCH in ${BRANCH_MATCH[@]} Quit; do
-    case ${BRANCH} in
-      Quit) exit $EXIT_USER_HALT ;;
-      '') echo "Invalid option. Try another one." >&2; continue ;;
-      *) break ;;
-    esac
-  done
+if [[ "$1" == "-" ]]; then
+  BRANCH="$1"
 else
-  BRANCH="${BRANCH_MATCH}"
+  LOCAL_BRANCHES="$(git branch -l --format='%(refname:short)')"
+  echo "${LOCAL_BRANCHES}" | grep -q $1 \
+    && BRANCH_MATCH=($(git branch -l --format='%(refname:short)' | grep $1)) \
+    || BRANCH_MATCH=(${LOCAL_BRANCHES})
+
+  if [ ${#BRANCH_MATCH[@]} -gt 1 ]; then
+    select BRANCH in ${BRANCH_MATCH[@]} Quit; do
+      case ${BRANCH} in
+        Quit) exit $EXIT_USER_HALT ;;
+        '') echo "Invalid option. Try another one." >&2; continue ;;
+        *) break ;;
+      esac
+    done
+  else
+    BRANCH="${BRANCH_MATCH}"
+  fi
 fi
 
 if [[ ! "${BRANCH}" ]]; then
