@@ -32,6 +32,7 @@
   rp = pull --rebase
   rpi = !GIT_EDITOR='code --reuse-window --wait' git pull --rebase=interactive
   tickets-delimited = !sh -c \"git tickets "$@" | tr -s '\\r\\n' ',' | sed 's/,*$//g'\" -
+  summary = !sh -c \"git log --reverse ${1:-origin/develop}...head --no-merges  --format='- %s %n%w(64,2,2)%-b' | sed -r '/^\\s*$/d' | sed 's/^  /  - /g'\" -
 [push]
   default = simple
 [filter "lfs"]
