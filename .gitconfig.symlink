@@ -31,6 +31,7 @@
   co = checkout-fuzzy
   rp = pull --rebase
   rpi = !GIT_EDITOR='code --reuse-window --wait' git pull --rebase=interactive
+  tickets-delimited = !sh -c \"git tickets "$@" | tr -s '\\r\\n' ',' | sed 's/,*$//g'\" -
 [push]
   default = simple
 [filter "lfs"]
