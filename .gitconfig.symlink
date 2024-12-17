@@ -27,7 +27,7 @@
   ri = !GIT_EDITOR='code --reuse-window --wait' git rebase --interactive
   mdr = merge-dry-run
   files-changed = !sh -c \"git diff --name-status HEAD ${1:-origin/develop}\" -
-  latest-tag = !git describe --tags $(git rev-list --tags --max-count=1)
+  latest-tag = describe origin --tags --abbrev=0
   co = checkout-fuzzy
   rp = pull --rebase
   rpi = !GIT_EDITOR='code --reuse-window --wait' git pull --rebase=interactive
