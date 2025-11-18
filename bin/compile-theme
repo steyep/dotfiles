@@ -1,0 +1,127 @@
+#! /bin/bash
+
+##
+# Script used for compiliing Drupal themes.
+##
+
+SCRIPT="${BASH_SCRIPT:-$0}"
+SCRIPT_NAME="$(basename ${SCRIPT})"
+THEME_DIR=""
+PACKAGE_MANAGER="npm"
+COMMANDS=()
+DEFAULT_COMMAND="run watch"
+INSTALL=0
+
+function print_error() { echo $'\033[0;31m\xE2\x9C\x97 \033[0m'"${@}" >&2 && exit 1; }
+function print_warning() { echo $'\033[0;33m\xE2\x9C\x97 \033[0m'"${@}" >&2 && return 1; }
+function print_success() { echo $'\033[0;32m\xE2\x9C\x94 \033[0m'"${@}" >&2 && return 0; }
+function print_blue() { echo $'\033[0;36m'"${@}"$'\033[0m'; }
+function parse_arg() { echo $1 | awk -F= '{ print $2 }'; }
+function show_menu() {
+	cat <<-END_MENU
+  Usage: ${SCRIPT_NAME} [options]
+  The following options are supported:
+    --theme-dir=<path/to/theme>   : The path to the theme directory.
+    --package-manager=<npm>       : Package manager to use for compiling.
+                                  : Defaults to "$(print_blue ${PACKAGE_MANAGER})"
+    --command=<command>           : Command for the Package Manager to execute.
+                                  : Multiple commands can be specified by
+                                  : adding this option multiple times.
+                                  : Defaults to "$(print_blue ${DEFAULT_COMMAND})"
+    --install                     : Install dependencies before executing commands.
+                                  : The default is true if the $(print_blue node_modules) directory is missing
+    --help                        : Show this message.
+	END_MENU
+}
+
+while (( $# )); do
+	case "$1" in
+    --command=*) COMMANDS+=("$(parse_arg "$1")"); shift;;
+    --theme-dir=*) THEME_DIR=$(parse_arg "$1"); shift;;
+    --package-manager=*) PACKAGE_MANAGER=$(parse_arg "$1"); shift;;
+    --install) INSTALL=1; shift;;
+		--help) show_menu && exit 0;;
+    *) print_error "$(printf "Unrecognized option: %s\n\n%s" "$(print_blue $1)" "$(show_menu)")";;
+	esac
+done
+
+# Add default command if none are provided.
+[[ ${#COMMANDS[@]} -eq 0 ]] && COMMANDS+=("${DEFAULT_COMMAND}")
+
+# A theme directory wasn't specified, so we try to sus it out.
+if [[ ! "${THEME_DIR}" ]]; then
+  # Try to find the theme directory based on the location of the package.json
+  # file in the git repository. Check themes/custom directories for Drupal
+  # themes and the repo root for JS projects.
+  PACKAGE_JSON=($(git ls-files -- ':(glob,top)**/themes/custom/*/package.json' ':/package.json'))
+  if [[ ${#PACKAGE_JSON[@]} -gt 1 ]]; then
+    print_warning "More than one package.json file found in the repository. Checking for the default theme."
+    DRUPAL_DEFAULT_THEME="$(git ls-files -- ':(glob,top)**/system.theme.yml' | head -n1 | xargs -n1 grep 'default: ' | awk '{ print $2 }')"
+    if [[ "${DRUPAL_DEFAULT_THEME}" ]]; then
+      print_warning "Default theme is set to: $(print_blue ${DRUPAL_DEFAULT_THEME})"
+      PACKAGE_JSON=($(git ls-files -- ":(glob,top)**/themes/custom/${DRUPAL_DEFAULT_THEME}/package.json"))
+    fi
+  fi
+
+  if [[ ! "${PACKAGE_JSON}" ]]; then
+    print_error "Unable to determine the theme directory. Please specify the theme directory using the $(print_blue --theme-dir) option."
+  fi
+
+  THEME_DIR="$(dirname ${PACKAGE_JSON})"
+fi
+
+test -d "${THEME_DIR}" \
+  || print_error "The theme directory does not exist: $(print_blue ${THEME_DIR})"
+cd ${THEME_DIR}
+
+if [[ "${PACKAGE_JSON}" ]]; then
+  print_success "Theme directory set to: $(print_blue ${PWD})"
+fi
+
+test -f ${PWD}/package.json \
+  || print_error "The theme directory does not contain a package.json file: $(print_blue ${PWD})"
+
+# If there is an .nvmrc file present in the theme directory, we should check to
+# see if nvm is available to handle version consistency.
+if [[ -f ${PWD}/.nvmrc ]]; then
+  for ITERATION in {1..2}; do
+    # Determine if NVM is available. If not, try to source it.
+    if [[ "$(nvm -v 2>/dev/null)" ]]; then
+      nvm use;
+      break;
+    fi
+
+    if [[ "${ITERATION}" == "1" && "${NVM_DIR}" && -f "${NVM_DIR}/nvm.sh" ]]; then
+      source "${NVM_DIR}/nvm.sh";
+      continue;
+    fi
+
+    print_warning "NVM is not available."
+    break;
+  done
+fi
+
+hash ${PACKAGE_MANAGER} &>/dev/null \
+  || print_error "The package manager is not available: $(print_blue ${PACKAGE_MANAGER})"
+
+[[ ! -d ${PWD}/node_modules ]] && INSTALL=1
+if [[ "${INSTALL}" == "1" ]]; then
+  echo "Installing dependencies..."
+  case "${PACKAGE_MANAGER}" in
+    npm) INSTALL_COMMAND="ci";;
+    pnpm|yarn) INSTALL_COMMAND="install --frozen-lockfile";;
+    *) INSTALL_COMMAND="install";;
+	esac
+  # Add the install command as the first command to be executed.
+  COMMANDS=("${INSTALL_COMMAND}" "${COMMANDS[@]}")
+fi
+
+# Execute the commands.
+for COMMAND in "${COMMANDS[@]}"; do
+  # Stop execution if any of the commands fail.
+  set -e
+  ARGS=(${COMMAND})
+  echo "Executing command: $(print_blue ${PACKAGE_MANAGER} ${ARGS[@]})"
+  ${PACKAGE_MANAGER} ${ARGS[@]}
+  print_success "Command completed successfully: $(print_blue ${PACKAGE_MANAGER} ${ARGS[@]})"
+done
