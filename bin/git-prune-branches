@@ -1,22 +1,45 @@
 #! /bin/sh
-git_root="$(git rev-parse --show-toplevel)/.git"
-test -d $git_root || { echo "Could not find git directory: \"$git_root\""; exit 1; }
-tmpfile=$git_root/PRUNE_BRANCHES
+PROJECT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
+GIT_ROOT="${PROJECT_ROOT}/.git"
+PLAN_FILE=${GIT_ROOT}/PRUNE_BRANCHES
+cleanup() { test -f ${PLAN_FILE} && rm -f ${PLAN_FILE}; }
+trap cleanup EXIT
 
-root_branch="${1:-master}"
-branches=$(git branch -vv --merged "$root_branch" | grep -Ev '\*|master|develop')
-if [[ ! "$branches" ]]; then
-  echo "\033[0;32m\xE2\x9C\x94\033[0m No branches found that haven't been merged into ${root_branch}."
+test -d ${GIT_ROOT} || {
+  echo "Could not find git directory: \"${GIT_ROOT}\"";
+  exit 1;
+}
+
+ROOT_BRANCH="${1:-origin/develop}"
+BRANCHES=()
+test -f ${TMPFILE} && rm -f ${TMPFILE} 2> /dev/null
+
+echo '# Branches to be removed on save & close' > ${PLAN_FILE}
+while read LINE; do
+  BRANCH="$(echo "${LINE}" | awk '{ print $1 }')"
+  if [[ "${BRANCH}" == '*' || "$(echo "${BRANCH}" | grep -E 'main|master|develop')" ]]; then
+    echo "Skipping branch ${LINE}" 1>&2
+    continue;
+  fi
+  BRANCHES+=("${BRANCH}")
+  echo "${LINE}" >> ${PLAN_FILE}
+done <<< "$(git branch -vv --merged "${ROOT_BRANCH}")"
+
+if (( ${#BRANCHES[@]} == 0 )); then
+  echo "\033[0;32m\xE2\x9C\x94\033[0m No branches found that haven't been merged into ${ROOT_BRANCH}." 1>&2
   exit 0
 fi
 
-echo "$branches" > $tmpfile
-code --wait $tmpfile
+code --wait ${PLAN_FILE}
+if [[ -f ${PLAN_FILE} ]]; then
+  for BRANCH in ${BRANCHES[@]}; do
+    if grep -q ${BRANCH} ${PLAN_FILE}; then
+      git branch -D ${BRANCH}
+    fi
+  done
+else
+  echo "Unable to locate plan file: ${PLAN_FILE}" 1>&2
+  exit 1
+fi
 
-while read line; do
-  branch=$(echo "$line" | awk '{ print $1 }')
-  [[ ! "$branch" ]] && continue
-  git branch -D $branch
-done <$tmpfile
-
-test -f $tmpfile && rm -f $tmpfile 2> /dev/null
+exit 0
